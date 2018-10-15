@@ -4419,7 +4419,7 @@ let totalCommits = 0;
     } 
   }
 
-  // How many of each event type are there? (PullRequestEvent, PushEvent, etc)
+  // How many of each event type are there? Total Push Events: 11, Total Pull Requests: 7, Total Delete Events: 4, Total Issue Comments: 4, Total Create Events: 4
 
 let totalPush = 0;
 let totalPullRequest = 0;
@@ -4441,6 +4441,8 @@ for (i = 0; i < githubData.length; i++) {
     totalCreate += 1;
   } 
 }
-console.log(`${totalPush}, ${totalPullRequest}, ${totalDelete}, ${totalIssueComment}, ${totalCreate}`)
+console.log(`Total Push Events: ${totalPush}, Total Pull Requests: ${totalPullRequest}, Total Delete Events: ${totalDelete}, Total Issue Comments: ${totalIssueComment}, Total Create Events: ${totalCreate}`)
+
+
   
   
