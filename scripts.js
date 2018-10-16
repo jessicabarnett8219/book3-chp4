@@ -4443,6 +4443,14 @@ for (i = 0; i < githubData.length; i++) {
 }
 console.log(`Total Push Events: ${totalPush}, Total Pull Requests: ${totalPullRequest}, Total Delete Events: ${totalDelete}, Total Issue Comments: ${totalIssueComment}, Total Create Events: ${totalCreate}`)
 
+// List all Github users who submitted a pull request that was approved by Steve. (CashewRose, MrErin, megducharme, stevebrownlee)
+
+for (i = 0; i < githubData.length; i++) {
+  if (githubData[i].type === "PullRequestEvent") {
+    console.log(githubData[i].payload.pull_request.user.login)
+  }
+}
+
 
   
   
