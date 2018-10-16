@@ -4409,15 +4409,17 @@ const githubData = [
   ]
 
 
-//  How many total commits were made in all of Steve's events? 113
+//  How many total commits were made in all of Steve's events? 84
 let totalCommits = 0;
+
   for (i = 0; i < githubData.length; i++) {
-    if (githubData[i].payload.commits === undefined) {
-      continue;
-    } else {
-      totalCommits += i;
+    if (githubData[i].type === "PushEvent") {
+      totalCommits += githubData[i].payload.commits.length
+    } else if (githubData[i].type === "PullRequestEvent") {
+      totalCommits += githubData[i].payload.pull_request.commits
     } 
   }
+  console.log(totalCommits)
 
   // How many of each event type are there? Total Push Events: 11, Total Pull Requests: 7, Total Delete Events: 4, Total Issue Comments: 4, Total Create Events: 4
 
@@ -4444,7 +4446,7 @@ for (i = 0; i < githubData.length; i++) {
 
 console.log(`Total Push Events: ${totalPush}, Total Pull Requests: ${totalPullRequest}, Total Delete Events: ${totalDelete}, Total Issue Comments: ${totalIssueComment}, Total Create Events: ${totalCreate}`)
 
-// List all Github users who submitted a pull request that was approved by Steve. (CashewRose, MrErin, megducharme, stevebrownlee)
+// // List all Github users who submitted a pull request that was approved by Steve. (CashewRose, MrErin, megducharme, stevebrownlee)
 
 for (i = 0; i < githubData.length; i++) {
   if (githubData[i].type === "PullRequestEvent") {
@@ -4452,34 +4454,34 @@ for (i = 0; i < githubData.length; i++) {
   }
 }
 
-// List all repositories on which Steve had an event, and show how many events were on each one.
-    // (2) nashville-software-school/client-side-mastery
-    // (4) nashville-software-school/bangazon-llc
-    // (1) stevebrownlee/vps-setup
-    // (11) nashville-software-school/client-side-mastery
-    // (2) nss-day-cohort-27/brenda-snack-cake-store
-    // (10) nashville-software-school/client-side-mastery
+// // List all repositories on which Steve had an event, and show how many events were on each one.
+//     // (23) nashville-software-school/client-side-mastery
+//     // (4) nashville-software-school/bangazon-llc
+//     // (1) stevebrownlee/vps-setup
+//     // (2) nss-day-cohort-27/brenda-snack-cake-store
+
 
   for (i = 0; i < githubData.length; i++) {
     console.log(githubData[i].repo.name)
   }
 
-  // Which event had the most number of commits? The 21st Event had the most
+//  Which event had the most number of commits? The 21st Event had the most
 
   for (i = 0; i < githubData.length; i++) {
-    if (githubData[i].payload.commits === undefined) {
+    if (githubData[i].payload.commits) {
+      console.log(`Event #${i+1}: ${githubData[i].payload.commits.length}`)
+      } else if (githubData[i].payload.pull_request) {
+        console.log(`Event #${i+1}: ${githubData[i].payload.pull_request.commits}`)
+      } else {
       console.log(`Event # ${i+1}: No Commits`);
-    } else {
-    console.log(`Event #${i+1}: ${githubData[i].payload.commits.length}`)
     }
   }
 
-  // Which programming langugages were affected by Steve's events? Which were affected most? JavaScript and Python. JavaScript the most.
+//   // Which programming langugages were affected by Steve's events? Which were affected most? JavaScript and Python. JavaScript the most.
 
   for (i = 0; i < githubData.length; i++) {
-    if (githubData[i].payload.pull_request === undefined) {
-      continue;
-    } else {
-    console.log(githubData[i].payload.pull_request.head.repo.language)
-    }
+    if (githubData[i].payload.pull_request) {
+      console.log(githubData[i].payload.pull_request.head.repo.language)
+      console.log(githubData[i].payload.pull_request.base.repo.language)
+    } 
   }
