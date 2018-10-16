@@ -4455,12 +4455,11 @@ for (i = 0; i < githubData.length; i++) {
 }
 
 // // List all repositories on which Steve had an event, and show how many events were on each one.
-//     // (2) nashville-software-school/client-side-mastery
+//     // (23) nashville-software-school/client-side-mastery
 //     // (4) nashville-software-school/bangazon-llc
 //     // (1) stevebrownlee/vps-setup
-//     // (11) nashville-software-school/client-side-mastery
 //     // (2) nss-day-cohort-27/brenda-snack-cake-store
-//     // (10) nashville-software-school/client-side-mastery
+
 
   for (i = 0; i < githubData.length; i++) {
     console.log(githubData[i].repo.name)
@@ -4480,10 +4479,9 @@ for (i = 0; i < githubData.length; i++) {
 
 //   // Which programming langugages were affected by Steve's events? Which were affected most? JavaScript and Python. JavaScript the most.
 
-  // for (i = 0; i < githubData.length; i++) {
-  //   if (githubData[i].payload.pull_request === undefined) {
-  //     continue;
-  //   } else {
-  //   console.log(githubData[i].payload.pull_request.head.repo.language)
-  //   }
-  // }
+  for (i = 0; i < githubData.length; i++) {
+    if (githubData[i].payload.pull_request) {
+      console.log(githubData[i].payload.pull_request.head.repo.language)
+      console.log(githubData[i].payload.pull_request.base.repo.language)
+    } 
+  }
