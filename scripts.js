@@ -4409,7 +4409,7 @@ const githubData = [
   ]
 
 
- 
+//  How many total commits were made in all of Steve's events? 113
 let totalCommits = 0;
   for (i = 0; i < githubData.length; i++) {
     if (githubData[i].payload.commits === undefined) {
@@ -4419,7 +4419,29 @@ let totalCommits = 0;
     } 
   }
 
-  console.log(totalCommits)
+  // How many of each event type are there? Total Push Events: 11, Total Pull Requests: 7, Total Delete Events: 4, Total Issue Comments: 4, Total Create Events: 4
+
+let totalPush = 0;
+let totalPullRequest = 0;
+let totalDelete = 0;
+let totalIssueComment = 0;
+let totalCreate = 0;
+
+
+for (i = 0; i < githubData.length; i++) {
+  if (githubData[i].type === "PushEvent") {
+    totalPush += 1;
+  } else if (githubData[i].type === "PullRequestEvent") {
+    totalPullRequest += 1;
+  } else if (githubData[i].type === "DeleteEvent") {
+    totalDelete += 1;
+  } else if (githubData[i].type === "IssueCommentEvent") {
+    totalIssueComment += 1;
+  } else if (githubData[i].type === "CreateEvent") {
+    totalCreate += 1;
+  } 
+}
+console.log(`Total Push Events: ${totalPush}, Total Pull Requests: ${totalPullRequest}, Total Delete Events: ${totalDelete}, Total Issue Comments: ${totalIssueComment}, Total Create Events: ${totalCreate}`)
 
 
   
