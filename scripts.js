@@ -4441,16 +4441,35 @@ for (i = 0; i < githubData.length; i++) {
     totalCreate += 1;
   } 
 }
-console.log(`Total Push Events: ${totalPush}, Total Pull Requests: ${totalPullRequest}, Total Delete Events: ${totalDelete}, Total Issue Comments: ${totalIssueComment}, Total Create Events: ${totalCreate}`)
+
+// console.log(`Total Push Events: ${totalPush}, Total Pull Requests: ${totalPullRequest}, Total Delete Events: ${totalDelete}, Total Issue Comments: ${totalIssueComment}, Total Create Events: ${totalCreate}`)
 
 // List all Github users who submitted a pull request that was approved by Steve. (CashewRose, MrErin, megducharme, stevebrownlee)
 
-for (i = 0; i < githubData.length; i++) {
-  if (githubData[i].type === "PullRequestEvent") {
-    console.log(githubData[i].payload.pull_request.user.login)
+// for (i = 0; i < githubData.length; i++) {
+//   if (githubData[i].type === "PullRequestEvent") {
+//     console.log(githubData[i].payload.pull_request.user.login)
+//   }
+// }
+
+// List all repositories on which Steve had an event, and show how many events were on each one.
+    // (2) nashville-software-school/client-side-mastery
+    // (4) nashville-software-school/bangazon-llc
+    // (1) stevebrownlee/vps-setup
+    // (11) nashville-software-school/client-side-mastery
+    // (2) nss-day-cohort-27/brenda-snack-cake-store
+    // (10) nashville-software-school/client-side-mastery
+
+  // for (i = 0; i < githubData.length; i++) {
+  //   console.log(githubData[i].repo.name)
+  // }
+
+  // Which event had the most number of commits? The 21st Event had the most
+
+  for (i = 0; i < githubData.length; i++) {
+    if (githubData[i].payload.commits === undefined) {
+      console.log(`Event # ${i+1}: No Commits`);
+    } else {
+    console.log(`Event #${i+1}: ${githubData[i].payload.commits.length}`)
+    }
   }
-}
-
-
-  
-  
