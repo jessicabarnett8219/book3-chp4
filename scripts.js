@@ -4423,32 +4423,41 @@ console.log(`Total Commits ${totalCommits}`)
 
 // How many of each event type are there? Total Push Events: 11, Total Pull Requests: 7, Total Delete Events: 4, Total Issue Comments: 4, Total Create Events: 4
 
-let totalPush = 0;
-let totalPullRequest = 0;
-let totalDelete = 0;
-let totalIssueComment = 0;
-let totalCreate = 0;
+// let eventTotals = {
+//   totalPush: 0,
+//   totalPullRequest:  0,
+//   totalDelete: 0,
+//   totalIssueComment: 0,
+//   totalCreate: 0
+// }
+
+let eventTotals = {}
+githubData.forEach( (event => {
+    eventTotals[event.type] = 0
+}
+))
+
 
 githubData.forEach( (event => {
   if (event.type === "PushEvent") {
-      totalPush += 1;
+      eventTotals.PushEvent += 1;
     } 
     else if (event.type === "PullRequestEvent") {
-      totalPullRequest += 1;
+      eventTotals.PullRequestEvent += 1;
     } 
     else if (event.type === "DeleteEvent") {
-      totalDelete += 1;
+      eventTotals.DeleteEvent += 1;
     } 
     else if (event.type === "IssueCommentEvent") {
-      totalIssueComment += 1;
+      eventTotals.IssueCommentEvent += 1;
     } 
     else if (event.type === "CreateEvent") {
-      totalCreate += 1;
+      eventTotals.CreateEvent += 1;
     }
   })
 )
 
-console.log(`Total Push Events: ${totalPush}, Total Pull Requests: ${totalPullRequest}, Total Delete Events: ${totalDelete}, Total Issue Comments: ${totalIssueComment}, Total Create Events: ${totalCreate}`)
+console.table(eventTotals);
 
 // // List all Github users who submitted a pull request that was approved by Steve. (CashewRose, MrErin, megducharme, stevebrownlee)
 
