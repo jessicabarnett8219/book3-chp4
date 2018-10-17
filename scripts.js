@@ -4409,19 +4409,19 @@ const githubData = [
   ]
 
 
-//  How many total commits were made in all of Steve's events? 84
+//  How many total commits were made in all of Steve's events (clarified requirements - no longer counting commits in PRs? 59
 let totalCommits = 0;
 
-  for (i = 0; i < githubData.length; i++) {
-    if (githubData[i].type === "PushEvent") {
-      totalCommits += githubData[i].payload.commits.length
-    } else if (githubData[i].type === "PullRequestEvent") {
-      totalCommits += githubData[i].payload.pull_request.commits
-    } 
+githubData.forEach( (event => {
+  if (event.payload.commits) {
+    totalCommits += event.payload.commits.length
   }
-  console.log(totalCommits)
+})
+)
+console.log(`Total Commits ${totalCommits}`)
 
-  // How many of each event type are there? Total Push Events: 11, Total Pull Requests: 7, Total Delete Events: 4, Total Issue Comments: 4, Total Create Events: 4
+
+// How many of each event type are there? Total Push Events: 11, Total Pull Requests: 7, Total Delete Events: 4, Total Issue Comments: 4, Total Create Events: 4
 
 let totalPush = 0;
 let totalPullRequest = 0;
@@ -4429,30 +4429,35 @@ let totalDelete = 0;
 let totalIssueComment = 0;
 let totalCreate = 0;
 
-
-for (i = 0; i < githubData.length; i++) {
-  if (githubData[i].type === "PushEvent") {
-    totalPush += 1;
-  } else if (githubData[i].type === "PullRequestEvent") {
-    totalPullRequest += 1;
-  } else if (githubData[i].type === "DeleteEvent") {
-    totalDelete += 1;
-  } else if (githubData[i].type === "IssueCommentEvent") {
-    totalIssueComment += 1;
-  } else if (githubData[i].type === "CreateEvent") {
-    totalCreate += 1;
-  } 
-}
+githubData.forEach( (event => {
+  if (event.type === "PushEvent") {
+      totalPush += 1;
+    } 
+    else if (event.type === "PullRequestEvent") {
+      totalPullRequest += 1;
+    } 
+    else if (event.type === "DeleteEvent") {
+      totalDelete += 1;
+    } 
+    else if (event.type === "IssueCommentEvent") {
+      totalIssueComment += 1;
+    } 
+    else if (event.type === "CreateEvent") {
+      totalCreate += 1;
+    }
+  })
+)
 
 console.log(`Total Push Events: ${totalPush}, Total Pull Requests: ${totalPullRequest}, Total Delete Events: ${totalDelete}, Total Issue Comments: ${totalIssueComment}, Total Create Events: ${totalCreate}`)
 
 // // List all Github users who submitted a pull request that was approved by Steve. (CashewRose, MrErin, megducharme, stevebrownlee)
 
-for (i = 0; i < githubData.length; i++) {
-  if (githubData[i].type === "PullRequestEvent") {
-    console.log(githubData[i].payload.pull_request.user.login)
-  }
-}
+githubData.forEach( (event => {
+  if(event.type === "PullRequestEvent") {
+    console.log(event.payload.pull_request.user.login)
+    }
+  })
+)
 
 // // List all repositories on which Steve had an event, and show how many events were on each one.
 //     // (23) nashville-software-school/client-side-mastery
@@ -4460,28 +4465,30 @@ for (i = 0; i < githubData.length; i++) {
 //     // (1) stevebrownlee/vps-setup
 //     // (2) nss-day-cohort-27/brenda-snack-cake-store
 
-
-  for (i = 0; i < githubData.length; i++) {
-    console.log(githubData[i].repo.name)
-  }
+githubData.forEach( (event => {
+  console.log(event.repo.name)
+  })
+)
 
 //  Which event had the most number of commits? The 21st Event had the most
 
-  for (i = 0; i < githubData.length; i++) {
-    if (githubData[i].payload.commits) {
-      console.log(`Event #${i+1}: ${githubData[i].payload.commits.length}`)
-      } else if (githubData[i].payload.pull_request) {
-        console.log(`Event #${i+1}: ${githubData[i].payload.pull_request.commits}`)
-      } else {
-      console.log(`Event # ${i+1}: No Commits`);
+githubData.forEach( (event => {
+  if (event.payload.commits) {
+    console.log(`# of commits: ${event.payload.commits.length}`)
+  } else if (event.payload.pull_request) {
+    console.log(`# of commits: ${event.payload.pull_request.commits}`)
+  } else {
+    console.log(`# of commits: 0`)
     }
   }
+))
 
 //   // Which programming langugages were affected by Steve's events? Which were affected most? JavaScript and Python. JavaScript the most.
 
-  for (i = 0; i < githubData.length; i++) {
-    if (githubData[i].payload.pull_request) {
-      console.log(githubData[i].payload.pull_request.head.repo.language)
-      console.log(githubData[i].payload.pull_request.base.repo.language)
-    } 
-  }
+githubData.forEach( (event => {
+  if (event.payload.pull_request) {
+        console.log(event.payload.pull_request.head.repo.language)
+        console.log(event.payload.pull_request.base.repo.language)
+      } 
+    }
+  ))
